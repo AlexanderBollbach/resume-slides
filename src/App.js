@@ -1,15 +1,25 @@
 import React, { Component } from "react";
-
+import "./App.css";
 import { TransitionGroup, Transition } from "react-transition-group";
 
-class Test extends Component {
-	componentWillAppear(cb) {
-		console.log("componentWillAppear");
-		cb();
-	}
+var uidCounter = 1;
 
+class Element extends Component {
 	render() {
-		return <div> test </div>;
+
+		// console.log("element props ")
+		// console.log(this.props)
+		return (
+			<Transition in={this.props.in} timeout={300}>
+				{state => {
+					// console.log(this.props.name);
+					// console.log(state);
+					return (
+						<div className={`Test ${state}`}>{this.props.name}</div>
+					);
+				}}
+			</Transition>
+		);
 	}
 }
 
@@ -17,24 +27,49 @@ class App extends Component {
 	constructor() {
 		super();
 
-		this.update = this.update.bind(this);
+		this.add = this.add.bind(this);
+		this.delete = this.delete.bind(this);
 
-		this.state = {
-			on: false
-		};
+		this.state = { elements: [] };
 	}
 
-	update() {
+	add() {
 		this.setState({
-			on: !this.state.on
+			elements: this.state.elements.concat([{ name: uidCounter }])
 		});
+
+		uidCounter += 1;
+
+	}
+
+	delete() {
+
+this.state.elements.pop()	
+
+		this.setState({
+			elements: this.state.elements
+		})
+
+	}
+
+	renderElements() {
+		return;
 	}
 
 	render() {
+
+		console.log(this.state.elements)
+
 		return (
 			<div>
-				<TransitionGroup>{this.state.on && <Test />}</TransitionGroup>
-				<button onClick={this.update}>tap</button>
+				<TransitionGroup>
+					{this.state.elements.map(element => (
+						<Element onmountOnExit={true} key={element.name} name={element.name} />
+					))}
+				</TransitionGroup>
+
+				<button onClick={this.add}>tap</button>
+				<button onClick={this.delete}>delete</button>
 			</div>
 		);
 	}

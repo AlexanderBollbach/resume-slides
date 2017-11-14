@@ -1,0 +1,21 @@
+.Test {
+	background-color: white;
+	transition: background-color 300ms ease-in-out;
+}
+
+.entering {
+	background-color: white;	
+}
+
+.entered {
+	background-color: red;
+}
+
+
+.exiting {
+	background-color: blue;
+}
+
+.exited {
+	background-color: blue
+}
