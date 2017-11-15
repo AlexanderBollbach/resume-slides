@@ -5,15 +5,23 @@ import { TransitionGroup, Transition } from "react-transition-group";
 var uidCounter = 1;
 
 class Element extends Component {
-	render() {
+	
+	componentDidMount() {
+		console.log(this.props.name);
+		console.log("componentDidMount");
+	}
 
-		// console.log("element props ")
-		// console.log(this.props)
+	componentWillUnmount() {
+		console.log(this.props.name);
+		console.log("componentWillUnmount");
+	}
+
+	render() {
 		return (
-			<Transition in={this.props.in} timeout={300}>
+			<Transition unmountOnExit={true} in={this.props.in} timeout={0}>
 				{state => {
-					// console.log(this.props.name);
-					// console.log(state);
+					console.log(this.props.name);
+					console.log(state);
 					return (
 						<div className={`Test ${state}`}>{this.props.name}</div>
 					);
@@ -39,17 +47,14 @@ class App extends Component {
 		});
 
 		uidCounter += 1;
-
 	}
 
 	delete() {
-
-this.state.elements.pop()	
+		this.state.elements.pop();
 
 		this.setState({
 			elements: this.state.elements
-		})
-
+		});
 	}
 
 	renderElements() {
@@ -57,14 +62,17 @@ this.state.elements.pop()
 	}
 
 	render() {
-
-		console.log(this.state.elements)
+		console.log(this.state.elements);
 
 		return (
 			<div>
 				<TransitionGroup>
 					{this.state.elements.map(element => (
-						<Element onmountOnExit={true} key={element.name} name={element.name} />
+						<Element
+							
+							key={element.name}
+							name={element.name}
+						/>
 					))}
 				</TransitionGroup>
 

@@ -1,6 +1,6 @@
 .Test {
+	transition: background-color 1000ms ease-in-out;
 	background-color: white;
-	transition: background-color 300ms ease-in-out;
 }
 
 .entering {
@@ -8,14 +8,14 @@
 }
 
 .entered {
-	background-color: red;
+	background-color: purple;
 }
 
 
 .exiting {
-	background-color: blue;
+	background-color: white;
 }
 
 .exited {
-	background-color: blue
+	background-color: white;
 }
